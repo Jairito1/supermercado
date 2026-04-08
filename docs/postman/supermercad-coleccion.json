@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "9707d49d-4e4f-4f15-a110-supermercado",
+    "name": "Supermercado API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Categorias",
+      "item": [
+        {
+          "name": "Crear categoria",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/categorias",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Lácteos\", \"descripcion\": \"Productos lácteos\"}"
+            }
+          }
+        },
+        {
+          "name": "Listar categorias",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categorias"
+          }
+        },
+        {
+          "name": "Consultar categoria por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/categorias/1"
+          }
+        },
+        {
+          "name": "Actualizar categoria",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/categorias/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Abarrotes y Granos\", \"descripcion\": \"Productos básicos de despensa y granos\"}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar categoria",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/categorias/3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Productos",
+      "item": [
+        {
+          "name": "Crear producto",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/productos",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Leche Entera 1L\", \"descripcion\": \"Leche pasteurizada\", \"codigoBarras\": \"770100000010\", \"precioCompra\": 3500, \"precioVenta\": 4500, \"stock\": 25, \"categoriaId\": 1}"
+            }
+          }
+        },
+        {
+          "name": "Listar productos activos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/productos"
+          }
+        },
+        {
+          "name": "Listar productos incluyendo inactivos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/productos?incluirInactivos=true"
+          }
+        },
+        {
+          "name": "Consultar producto por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/productos/1"
+          }
+        },
+        {
+          "name": "Actualizar producto",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/productos/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Arroz 1kg Premium\", \"descripcion\": \"Arroz blanco premium grano largo\", \"codigoBarras\": \"770100000001\", \"precioCompra\": 3400, \"precioVenta\": 4200, \"stock\": 50, \"categoriaId\": 1}"
+            }
+          }
+        },
+        {
+          "name": "Cambiar estado producto",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/productos/1/estado?activo=false"
+          }
+        },
+        {
+          "name": "Desactivar producto (borrado logico)",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/productos/1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Proveedores",
+      "item": [
+        {
+          "name": "Crear proveedor",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/proveedores",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Mayorista Andina\", \"nit\": \"901111222-3\", \"telefono\": \"3021112233\", \"correo\": \"compras@andina.com\", \"direccion\": \"Calle 22 # 44-10\"}"
+            }
+          }
+        },
+        {
+          "name": "Listar proveedores",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/proveedores"
+          }
+        },
+        {
+          "name": "Consultar proveedor por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/proveedores/1"
+          }
+        },
+        {
+          "name": "Actualizar proveedor",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/proveedores/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"nombre\": \"Distribuidora Central S.A.\", \"nit\": \"900123456-1\", \"telefono\": \"3001234567\", \"correo\": \"ventas@dcentral.com\", \"direccion\": \"Cra 10 # 20-30 Bodega 5\"}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar proveedor",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/proveedores/2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Abastecimiento",
+      "item": [
+        {
+          "name": "Entrada de almacen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/abastecimiento/entrada-almacen",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"productoId\": 1, \"proveedorId\": 1, \"cantidad\": 15}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Empleados",
+      "item": [
+        {
+          "name": "Crear empleado",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/empleados",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"cedula\": \"1099001009\", \"nombre\": \"Andrés Pérez\", \"cargo\": \"CAJERO\", \"fechaIngreso\": \"2025-01-10\", \"salario\": 1750000}"
+            }
+          }
+        },
+        {
+          "name": "Listar empleados",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empleados"
+          }
+        },
+        {
+          "name": "Consultar empleado por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empleados/1"
+          }
+        },
+        {
+          "name": "Actualizar empleado",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/empleados/2",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"cedula\": \"1099001002\", \"nombre\": \"Carlos Ramírez López\", \"cargo\": \"CAJERO\", \"fechaIngreso\": \"2024-03-10\", \"salario\": 1900000}"
+            }
+          }
+        },
+        {
+          "name": "Eliminar empleado",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/empleados/3"
+          }
+        },
+        {
+          "name": "Filtrar por cargo",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empleados/filtros?cargo=CAJERO"
+          }
+        },
+        {
+          "name": "Filtrar por fecha de ingreso",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/empleados/filtros?fechaInicio=2024-01-01&fechaFin=2024-12-31"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ventas",
+      "item": [
+        {
+          "name": "Registrar venta",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/ventas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"empleadoId\": 2, \"detalles\": [{\"productoId\": 1, \"cantidad\": 2}, {\"productoId\": 3, \"cantidad\": 1}]}"
+            }
+          }
+        },
+        {
+          "name": "Consultar venta por id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/ventas/1"
+          }
+        }
+      ]
+    }
+  ]
+}
