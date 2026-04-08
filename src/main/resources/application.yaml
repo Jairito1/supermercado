@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: supermercado
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:supermercado}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Bogota
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET:dTRmN3hKcDlRd2VyWnRCbk1rNWdYc0xoVjhZZkFqQ3U=}
+  expiration: 86400000
