@@ -27,24 +27,24 @@ public class ProductoService {
 
     @Transactional
     public ProductoResponseDTO create(ProductoRequestDTO request) {
-        if (productoRepository.existsByCodigoBarras(request.codigoBarras())) {
+        if (productoRepository.existsByCodigoBarras(request.getCodigoBarras())) {
             throw new DuplicateResourceException("El código de barras ya está registrado");
         }
 
-        Categoria categoria = categoriaRepository.findById(request.categoriaId())
-                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + request.categoriaId()));
+        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + request.getCategoriaId()));
 
-        if (request.precioVenta().compareTo(request.precioCompra()) < 0) {
+        if (request.getPrecioVenta().compareTo(request.getPrecioCompra()) < 0) {
             throw new BusinessRuleException("El precio de venta no puede ser menor al precio de compra");
         }
 
         Producto producto = new Producto();
-        producto.setNombre(request.nombre());
-        producto.setDescripcion(request.descripcion());
-        producto.setCodigoBarras(request.codigoBarras());
-        producto.setPrecioCompra(request.precioCompra());
-        producto.setPrecioVenta(request.precioVenta());
-        producto.setStock(request.stock());
+        producto.setNombre(request.getNombre());
+        producto.setDescripcion(request.getDescripcion());
+        producto.setCodigoBarras(request.getCodigoBarras());
+        producto.setPrecioCompra(request.getPrecioCompra());
+        producto.setPrecioVenta(request.getPrecioVenta());
+        producto.setStock(request.getStock());
         producto.setActivo(true);
         producto.setCategoria(categoria);
 
@@ -70,23 +70,23 @@ public class ProductoService {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + id));
 
-        if (productoRepository.existsByCodigoBarrasAndIdNot(request.codigoBarras(), id)) {
+        if (productoRepository.existsByCodigoBarrasAndIdNot(request.getCodigoBarras(), id)) {
             throw new DuplicateResourceException("Ese código de barras ya lo tiene otro producto");
         }
 
-        Categoria categoria = categoriaRepository.findById(request.categoriaId())
-                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + request.categoriaId()));
+        Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoría no encontrada con id: " + request.getCategoriaId()));
 
-        if (request.precioVenta().compareTo(request.precioCompra()) < 0) {
+        if (request.getPrecioVenta().compareTo(request.getPrecioCompra()) < 0) {
             throw new BusinessRuleException("El precio de venta no puede ser menor al precio de compra");
         }
 
-        producto.setNombre(request.nombre());
-        producto.setDescripcion(request.descripcion());
-        producto.setCodigoBarras(request.codigoBarras());
-        producto.setPrecioCompra(request.precioCompra());
-        producto.setPrecioVenta(request.precioVenta());
-        producto.setStock(request.stock());
+        producto.setNombre(request.getNombre());
+        producto.setDescripcion(request.getDescripcion());
+        producto.setCodigoBarras(request.getCodigoBarras());
+        producto.setPrecioCompra(request.getPrecioCompra());
+        producto.setPrecioVenta(request.getPrecioVenta());
+        producto.setStock(request.getStock());
         producto.setCategoria(categoria);
 
         Producto saved = productoRepository.save(producto);

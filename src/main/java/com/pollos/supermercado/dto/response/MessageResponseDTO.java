@@ -1,3 +1,15 @@
 package com.pollos.supermercado.dto.response;
 
-public record MessageResponseDTO(String message) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class MessageResponseDTO {
+
+    private String message;
+}

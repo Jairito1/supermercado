@@ -24,7 +24,7 @@ public class EmpleadoService {
 
     @Transactional
     public EmpleadoResponseDTO create(EmpleadoRequestDTO request) {
-        if (empleadoRepository.existsByCedula(request.cedula())) {
+        if (empleadoRepository.existsByCedula(request.getCedula())) {
             throw new DuplicateResourceException("Ya existe un empleado con esa cédula");
         }
 
@@ -49,7 +49,7 @@ public class EmpleadoService {
         Empleado empleado = empleadoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Empleado no encontrado con id: " + id));
 
-        if (empleadoRepository.existsByCedulaAndIdNot(request.cedula(), id)) {
+        if (empleadoRepository.existsByCedulaAndIdNot(request.getCedula(), id)) {
             throw new DuplicateResourceException("Ya existe un empleado con esa cédula");
         }
 
@@ -78,11 +78,11 @@ public class EmpleadoService {
     }
 
     private void mapFields(EmpleadoRequestDTO dto, Empleado empleado) {
-        empleado.setCedula(dto.cedula());
-        empleado.setNombre(dto.nombre());
-        empleado.setCargo(dto.cargo());
-        empleado.setFechaIngreso(dto.fechaIngreso());
-        empleado.setSalario(dto.salario());
+        empleado.setCedula(dto.getCedula());
+        empleado.setNombre(dto.getNombre());
+        empleado.setCargo(dto.getCargo());
+        empleado.setFechaIngreso(dto.getFechaIngreso());
+        empleado.setSalario(dto.getSalario());
     }
 
     private EmpleadoResponseDTO toResponse(Empleado emp) {

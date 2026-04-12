@@ -4,12 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.pollos.supermercado.enums.CargoEmpleado;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public record EmpleadoResponseDTO(
-        Long id,
-        String cedula,
-        String nombre,
-        CargoEmpleado cargo,
-        LocalDate fechaIngreso,
-        BigDecimal salario
-) {}
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmpleadoResponseDTO {
+
+    private Long id;
+    private String cedula;
+    private String nombre;
+    private CargoEmpleado cargo;
+    private LocalDate fechaIngreso;
+    private BigDecimal salario;
+}

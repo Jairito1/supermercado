@@ -36,8 +36,8 @@ public class VentaService {
 
     @Transactional
     public VentaResponseDTO procesarVenta(VentaRequestDTO request) {
-        Empleado empleado = empleadoRepository.findById(request.empleadoId())
-                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con id: " + request.empleadoId()));
+        Empleado empleado = empleadoRepository.findById(request.getEmpleadoId())
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el empleado con id: " + request.getEmpleadoId()));
 
         Venta venta = new Venta();
         venta.setFechaVenta(LocalDateTime.now());
@@ -45,29 +45,29 @@ public class VentaService {
 
         BigDecimal subtotal = BigDecimal.ZERO;
 
-        for (DetalleVentaRequestDTO detalleReq : request.detalles()) {
-            Producto producto = productoRepository.findById(detalleReq.productoId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + detalleReq.productoId()));
+        for (DetalleVentaRequestDTO detalleReq : request.getDetalles()) {
+            Producto producto = productoRepository.findById(detalleReq.getProductoId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + detalleReq.getProductoId()));
 
             if (!Boolean.TRUE.equals(producto.getActivo())) {
                 throw new BusinessRuleException("El producto " + producto.getNombre() + " está inactivo y no puede venderse");
             }
 
-            if (producto.getStock() < detalleReq.cantidad()) {
+            if (producto.getStock() < detalleReq.getCantidad()) {
                 throw new InsufficientStockException("No hay suficiente stock de: " + producto.getNombre());
             }
 
-            producto.setStock(producto.getStock() - detalleReq.cantidad());
+            producto.setStock(producto.getStock() - detalleReq.getCantidad());
             productoRepository.save(producto);
 
             BigDecimal subtotalLinea = producto.getPrecioVenta()
-                    .multiply(BigDecimal.valueOf(detalleReq.cantidad()))
+                    .multiply(BigDecimal.valueOf(detalleReq.getCantidad()))
                     .setScale(2, RoundingMode.HALF_UP);
 
             DetalleVenta detalle = new DetalleVenta();
             detalle.setVenta(venta);
             detalle.setProducto(producto);
-            detalle.setCantidad(detalleReq.cantidad());
+            detalle.setCantidad(detalleReq.getCantidad());
             detalle.setPrecioUnitario(producto.getPrecioVenta());
             detalle.setSubtotalLinea(subtotalLinea);
 

@@ -21,13 +21,13 @@ public class CategoriaService {
     private final CategoriaRepository categoriaRepository;
 
     public CategoriaResponseDTO create(CategoriaRequestDTO request) {
-        if (categoriaRepository.existsByNombreIgnoreCase(request.nombre())) {
+        if (categoriaRepository.existsByNombreIgnoreCase(request.getNombre())) {
             throw new DuplicateResourceException("Ya existe una categoría con ese nombre");
         }
 
         Categoria categoria = new Categoria();
-        categoria.setNombre(request.nombre());
-        categoria.setDescripcion(request.descripcion());
+        categoria.setNombre(request.getNombre());
+        categoria.setDescripcion(request.getDescripcion());
 
         return toResponse(categoriaRepository.save(categoria));
     }
@@ -48,12 +48,12 @@ public class CategoriaService {
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No existe la categoría con id: " + id));
 
-        if (categoriaRepository.existsByNombreIgnoreCaseAndIdNot(request.nombre(), id)) {
+        if (categoriaRepository.existsByNombreIgnoreCaseAndIdNot(request.getNombre(), id)) {
             throw new DuplicateResourceException("Ya existe una categoría con ese nombre");
         }
 
-        categoria.setNombre(request.nombre());
-        categoria.setDescripcion(request.descripcion());
+        categoria.setNombre(request.getNombre());
+        categoria.setDescripcion(request.getDescripcion());
 
         return toResponse(categoriaRepository.save(categoria));
     }

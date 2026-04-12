@@ -23,7 +23,7 @@ public class ProveedorService {
 
     @Transactional
     public ProveedorResponseDTO create(ProveedorRequestDTO request) {
-        if (proveedorRepository.existsByNit(request.nit())) {
+        if (proveedorRepository.existsByNit(request.getNit())) {
             throw new DuplicateResourceException("El NIT ya está registrado en el sistema");
         }
 
@@ -49,7 +49,7 @@ public class ProveedorService {
         Proveedor proveedor = proveedorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado con id: " + id));
 
-        if (proveedorRepository.existsByNitAndIdNot(request.nit(), id)) {
+        if (proveedorRepository.existsByNitAndIdNot(request.getNit(), id)) {
             throw new DuplicateResourceException("Ese NIT ya pertenece a otro proveedor");
         }
 
@@ -64,11 +64,11 @@ public class ProveedorService {
     }
 
     private void mapFields(ProveedorRequestDTO request, Proveedor proveedor) {
-        proveedor.setNombre(request.nombre());
-        proveedor.setNit(request.nit());
-        proveedor.setTelefono(request.telefono());
-        proveedor.setCorreo(request.correo());
-        proveedor.setDireccion(request.direccion());
+        proveedor.setNombre(request.getNombre());
+        proveedor.setNit(request.getNit());
+        proveedor.setTelefono(request.getTelefono());
+        proveedor.setCorreo(request.getCorreo());
+        proveedor.setDireccion(request.getDireccion());
     }
 
     private ProveedorResponseDTO toResponse(Proveedor p) {

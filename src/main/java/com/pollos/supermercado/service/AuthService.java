@@ -34,13 +34,13 @@ public class AuthService implements UserDetailsService {
     }
 
     public TokenResponseDTO registro(RegistroRequestDTO request) {
-        if (usuarioRepository.existsByUsername(request.username())) {
+        if (usuarioRepository.existsByUsername(request.getUsername())) {
             throw new DuplicateResourceException("El nombre de usuario ya está en uso");
         }
 
         Usuario usuario = Usuario.builder()
-                .username(request.username())
-                .password(passwordEncoder.encode(request.password()))
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .rol("ROLE_USER")
                 .build();
 
@@ -51,10 +51,10 @@ public class AuthService implements UserDetailsService {
 
     public TokenResponseDTO login(LoginRequestDTO request) {
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.username(), request.password())
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
-        Usuario usuario = usuarioRepository.findByUsername(request.username())
+        Usuario usuario = usuarioRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
 
         String token = jwtService.generarToken(usuario);

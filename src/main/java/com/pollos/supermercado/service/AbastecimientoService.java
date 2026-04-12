@@ -24,17 +24,17 @@ public class AbastecimientoService {
 
     @Transactional
     public ProductoResponseDTO registrarEntrada(EntradaAlmacenRequestDTO request) {
-        Producto producto = productoRepository.findById(request.productoId())
-                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + request.productoId()));
+        Producto producto = productoRepository.findById(request.getProductoId())
+                .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + request.getProductoId()));
 
-        Proveedor proveedor = proveedorRepository.findById(request.proveedorId())
-                .orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado con id: " + request.proveedorId()));
+        Proveedor proveedor = proveedorRepository.findById(request.getProveedorId())
+                .orElseThrow(() -> new ResourceNotFoundException("Proveedor no encontrado con id: " + request.getProveedorId()));
 
         if (!Boolean.TRUE.equals(producto.getActivo())) {
             throw new BusinessRuleException("No se puede abastecer un producto inactivo");
         }
 
-        producto.setStock(producto.getStock() + request.cantidad());
+        producto.setStock(producto.getStock() + request.getCantidad());
         producto.getProveedores().add(proveedor);
         proveedor.getProductos().add(producto);
 

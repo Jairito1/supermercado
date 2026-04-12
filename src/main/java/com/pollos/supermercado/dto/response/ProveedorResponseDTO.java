@@ -2,12 +2,22 @@ package com.pollos.supermercado.dto.response;
 
 import java.util.List;
 
-public record ProveedorResponseDTO(
-        Long id,
-        String nombre,
-        String nit,
-        String telefono,
-        String correo,
-        String direccion,
-        List<ProductoSimpleResponseDTO> productos
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProveedorResponseDTO {
+
+    private Long id;
+    private String nombre;
+    private String nit;
+    private String telefono;
+    private String correo;
+    private String direccion;
+    private List<ProductoSimpleResponseDTO> productos;
+}
