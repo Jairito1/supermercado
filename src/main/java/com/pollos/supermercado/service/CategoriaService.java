@@ -3,6 +3,7 @@ package com.pollos.supermercado.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pollos.supermercado.dto.request.CategoriaRequestDTO;
 import com.pollos.supermercado.dto.response.CategoriaResponseDTO;
@@ -15,6 +16,7 @@ import com.pollos.supermercado.repository.CategoriaRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CategoriaService {
 

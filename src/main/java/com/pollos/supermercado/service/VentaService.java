@@ -86,6 +86,7 @@ public class VentaService {
         return findById(saved.getId());
     }
 
+    @Transactional(readOnly = true)
     public VentaResponseDTO findById(Long id) {
         Venta venta = ventaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No se encontró la venta con id: " + id));

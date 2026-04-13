@@ -51,6 +51,7 @@ public class ProductoService {
         return toResponse(productoRepository.save(producto));
     }
 
+    @Transactional(readOnly = true)
     public List<ProductoResponseDTO> findAll(Boolean incluirInactivos) {
         List<Producto> productos = Boolean.TRUE.equals(incluirInactivos)
                 ? productoRepository.findAll()
@@ -59,6 +60,7 @@ public class ProductoService {
         return productos.stream().map(this::toResponse).toList();
     }
 
+    @Transactional(readOnly = true)
     public ProductoResponseDTO findById(Long id) {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado con id: " + id));
