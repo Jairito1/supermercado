@@ -16,6 +16,7 @@ import com.pollos.supermercado.repository.ProveedorRepository;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProveedorService {
 

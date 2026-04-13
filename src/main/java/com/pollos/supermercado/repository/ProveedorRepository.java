@@ -2,6 +2,8 @@ package com.pollos.supermercado.repository;
 
 import java.util.Optional;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,4 +17,7 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 
     @EntityGraph(attributePaths = {"productos"})
     Optional<Proveedor> findById(Long id);
+
+    @EntityGraph(attributePaths = {"productos"})
+    List<Proveedor> findAll();
 }
